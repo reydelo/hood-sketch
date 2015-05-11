@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
     end
     @data = DataFetcher.new.fetch_hood_sketch(params["city"], params["state"], params["hood"])
     @hood = []
-    @data["demographics"]["response"]["pages"]["page"][1]["tables"]["table"].each do |stat|
+    @data["demographics"]["response"]["pages"]["page"][2]["uniqueness"]["category"].each do |stat|
       @hood << stat
     end
     render json: @hood
