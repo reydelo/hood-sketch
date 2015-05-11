@@ -17,10 +17,11 @@ class DataFetcher
     @parsed = JSON.parse(Hash.from_xml(response.body).to_json)
   end
 
-  def fetch_hood_sketch
+  def fetch_hood_sketch(city, state, hood)
     response = @zillow.get do |req|
-      req.url "/webservice/GetDemographics.htm?zws-id=X1-ZWz1a8nid40f7v_4srxq&state=CO&city=Denver&neighborhood=CapitolHill"
+      req.url "/webservice/GetDemographics.htm?zws-id=X1-ZWz1a8nid40f7v_4srxq&state=#{state}&city=#{city}&neighborhood=#{hood}"
     end
+    @parsed = JSON.parse(Hash.from_xml(response.body).to_json)
   end
 
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get  "/hoods" => "welcome#hoods"
+  get "/hood" => "welcome#hood"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
