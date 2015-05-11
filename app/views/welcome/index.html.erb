@@ -1,0 +1,15 @@
+<form>
+City:<br>
+<input type="text" class="input-city"><br>
+State:<br>
+<input type="text" class="input-state">
+<input type="button" name="name" value="Button">
+<br>
+</form>
+
+<div class="hoods">
+  <% @hoods.each do |hood| %>
+    <%= hood %><br>
+
+  <%end%>
+</div>
