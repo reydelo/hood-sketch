@@ -26,18 +26,18 @@ $(function(){
         // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
         // debugger
         if (i%3 === 0) {
-          $(".left-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+          $(".hoods .left-column").append("<li><a href='#'>" + data[i] + "</a></li>");
         } else if(i%2 === 0) {
-          $(".middle-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+          $(".hoods .middle-column").append("<li><a href='#'>" + data[i] + "</a></li>");
         } else {
-          $(".right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+          $(".hoods .right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
         }
       }
     });
   });
 
   //find data of neighborhood
-  $("div").on('click', 'a', function(){
+  $("div .hoods").on('click', 'li', function(){
     var city = $(".input-city").val();
     var state = $(".input-state").val();
     var hood = $(this).text();
@@ -46,17 +46,17 @@ $(function(){
       url: "/hood",
       data: {"city": city, "state": state, "hood": hood}
     }).done(function(data) {
-      $('.hood').children().remove();
+      // $('.hood').children().remove();
       $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
       // hood characteristics of people
       for(var i = 0; i < data[2]["uniqueness"]["category"].length; i++){
-        $(".hood").append("<h4>" + data[2]["uniqueness"]["category"][i]['type'] + "</h4>");
+        $(".hoodInfo").append("<h4>" + data[2]["uniqueness"]["category"][i]['type'] + "</h4>");
         if (Array.isArray(data[2]["uniqueness"]["category"][i]['characteristic'])) {
           for(var f = 0; f < data[2]["uniqueness"]["category"][i]['characteristic'].length; f++){
-            $(".hood").append("<li>" + data[2]["uniqueness"]["category"][i]['characteristic'][f] + "</li>");
+            $(".hoodInfo").append("<li>" + data[2]["uniqueness"]["category"][i]['characteristic'][f] + "</li>");
           }
         } else {
-          $('.hood').append('<li>' + data[2]["uniqueness"]["category"][i]['characteristic'] + '</li>');
+          $('.hoodInfo').append('<li>' + data[2]["uniqueness"]["category"][i]['characteristic'] + '</li>');
         }
       }
       //Median List Price
