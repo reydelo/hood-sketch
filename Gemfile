@@ -11,6 +11,7 @@ gem 'turbolinks'
 gem 'json'
 gem 'faraday'
 gem 'jbuilder', '~> 2.0'
+gem 'handlebars_assets'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
