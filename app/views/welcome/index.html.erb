@@ -1,18 +1,61 @@
-
-<form>
-City:<br>
-<input type="text" class="input-city"><br>
-State:<br>
-<input type="text" class="input-state">
-<input type="button" name="name" value="Get Hoods">
-<br>
-</form>
-<div class="content">
-  <div class="hoods">
+<a name="search"></a>
+<div id="search">
+  <form class="form-inline col-md-12">
+    <div class="form-group">
+      <input type="text" class="input-city form-control" placeholder="City">
+      <input type="text" class="input-state form-control" placeholder="State">
+    </div>
+    <button type="submit" name="name" class="btn btn-default">Get Hoods</button>
+  </form>
+</div>
+<div class="content clearfix">
+  <div class="hoods clearfix">
+    <div class="col-md-4">
+      <ul>
+        <li>Lower Highlands</li>
+        <li>West Highlands</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul>
+        <li>Five Points</li>
+        <li>Rino</li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul>
+        <li>Capitol Hill</li>
+        <li>Uptown</li>
+      </ul>
+    </div>
+    <center><a href="#hood"><i class="fa fa-chevron-down"></i></a><center>
   </div>
-
-  <div class="hood">
-
-
+  <div class="hood clearfix">
+    <a name="hood"></a>
+    <h1>Lower Highlands Hood Sketch</h1>
+    <center><a href="#stats"><i class="fa fa-chevron-down"></i></a><center>
+  </div>
+  <div class="stats clearfix">
+    <a name="stats"></a>
+    <h1>Hood Stats</h1>
+    <div class="col-md-3">
+      <p>27% Did not graduated from high school.</p>
+    </div>
+    <div class="col-md-3">
+      <p>Average Commute Time: 20 minutes</p>
+    </div>
+    <div class="col-md-3">
+      <p>70% Single</p>
+    </div>
+    <div class="col-md-3">
+      <p>Average Year Building Built In 1950</p>
+    </div>
+    <center><a href="#charts"><i class="fa fa-chevron-down"></i></a><center>
+  </div>
+  <div class="charts clearfix">
+    <a name="charts"></a>
+    <h1>Hood Visualizations</h1>
+    <center> <%= image_tag("pie_chart.png") %> </center>
+    <center><a href="#search"><i class="fa fa-chevron-up"></i></a><center>
   </div>
 </div>

@@ -1,2 +1,66 @@
 @import 'bootstrap';
 @import 'bootstrap-sprockets';
+
+body {
+  padding-top: 50px;
+}
+
+#search {
+  background-image: url("denver_skyline.jpg");
+
+}
+
+.form-inline {
+  text-align: center;
+  height: 100px;
+}
+
+a {
+  color: inherit;
+}
+ul {
+  text-align: center;
+  margin-left: -40px;
+  margin-top: 325px;
+}
+
+.stats p, .charts img {
+  text-align: center;
+  padding-top: 35px;
+}
+
+li {
+  list-style-type: none !important;
+}
+
+h1 {
+  text-align: center;
+}
+
+i {
+  text-align: center;
+}
+.hood, .hoods, .stats, .charts {
+  height: 650px;
+}
+
+.fa {
+  font-size: 30px;
+  margin-top: 220px;
+}
+
+.hood .fa {
+  margin-top: 525px;
+}
+
+.stats .fa {
+  margin-top: 460px;
+}
+
+img {
+  height: 300px;
+}
+
+.hoods, .stats {
+  background-color: #efefef;
+}
