@@ -9,7 +9,7 @@ $(function(){
     }
     return array.join(' ');
   };
-  
+
   //find neighborhoods of city
   $(":button").on("click", function(){
     var city = $(".input-city").val();
@@ -22,7 +22,13 @@ $(function(){
       $('.hood').children().remove();
       $('.hoods').append("<h3>Neighborhoods of " + city + ', ' + state + "</h3>");
       for(var i = 0; i < data.length; i++){
-        $(".hoods").append("<li><a href='#'>" + data[i] + "</a></li>");
+        // debugger
+        if (i%3 === 0)
+          $(".left-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+        else if(i%2 === 0)
+          $(".middle-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+        else
+          $(".right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
       }
     });
   });
