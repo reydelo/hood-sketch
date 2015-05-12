@@ -33,6 +33,7 @@ $(function(){
     var city = $(".input-city").val();
     var state = $(".input-state").val();
     var hood = $(this).text();
+    var nation = 'US';
     $.ajax({
       url: "/hood",
       data: {"city": city, "state": state, "hood": hood}
@@ -52,7 +53,29 @@ $(function(){
         }
       }
       //Median List Price
-      // var medianPriceTitle = data[0]["tables"]["table"]["data"]["attributes"][8]['name'];
+      var medianListPrice = data[0]["tables"]["table"]["data"]["attribute"][8];
+      var medianPriceTitle = medianListPrice['name'];
+
+      console.log(medianPriceTitle);
+      drawBarChart();
+           function drawBarChart() {
+             var data = google.visualization.arrayToDataTable([
+               [ 'Price per Square Foot', hood, city, nation],
+               [  ' ', parseInt(medianListPrice["values"]["neighborhood"]["value"]), parseInt(medianListPrice["values"]["city"]["value"]), parseInt(medianListPrice["values"]["nation"]["value"])],
+
+             ]);
+
+             var options = {
+               chart: {
+                 title: medianPriceTitle,
+                 subtitle: '',
+               }
+             };
+
+             var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+             chart.draw(data, options);
+           }
 
     });
   });
@@ -60,59 +83,58 @@ $(function(){
 
   //GOOGLE CHARTS
   // Set a callback to run when the Google Visualization API is loaded.
-  google.setOnLoadCallback(drawChart);
-
-  // Callback that creates and populates a data table,
-  // instantiates the pie chart, passes in the data and
-  // draws it.
-  function drawChart() {
-    // Create the data table.
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Topping');
-    data.addColumn('number', 'Slices');
-    data.addRows([
-      ['Mushrooms', 3],
-      ['Onions', 1],
-      ['Olives', 1],
-      ['Zucchini', 1],
-      ['Pepperoni', 2]
-    ]);
-
-    // Set chart options
-    var options = {'title':'How Much Pizza I Ate Last Night',
-                   'width':400,
-                   'height':300};
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  }
-drawChart()
-
-
-
-google.setOnLoadCallback(drawChart);
-     function drawChart() {
-       var data = google.visualization.arrayToDataTable([
-         [ '', 'Sales', 'Expenses', 'Profit'],
-         [ '' ,1000, 400, 200],
-
-       ]);
-
-       var options = {
-         chart: {
-           title: 'Company Performance',
-           subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-         }
-       };
-
-       var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-       chart.draw(data, options);
-     }
-
-
-
-
+//   google.setOnLoadCallback(drawPieChart);
+//
+//   // Callback that creates and populates a data table,
+//   // instantiates the pie chart, passes in the data and
+//   // draws it.
+//   function drawPieChart() {
+//     // Create the data table.
+//     var data = new google.visualization.DataTable();
+//     data.addColumn('string', 'Topping');
+//     data.addColumn('number', 'Slices');
+//     data.addRows([
+//       ['Mushrooms', 3],
+//       ['Onions', 1],
+//       ['Olives', 1],
+//       ['Zucchini', 1],
+//       ['Pepperoni', 2]
+//     ]);
+//
+//     // Set chart options
+//     var options = {'title':'How Much Pizza I Ate Last Night',
+//                    'width':400,
+//                    'height':300};
+//
+//     // Instantiate and draw our chart, passing in some options.
+//     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+//     chart.draw(data, options);
+//   }
+//
+//
+//
+// google.setOnLoadCallback(drawBarChart);
+//      function drawBarChart() {
+//        var data = google.visualization.arrayToDataTable([
+//          [ '', 'Sales', 'Expenses', 'Profit'],
+//          [ '' ,1000, 400, 200],
+//
+//        ]);
+//
+//        var options = {
+//          chart: {
+//            title: 'Company Performance',
+//            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+//          }
+//        };
+//
+//        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+//
+//        chart.draw(data, options);
+//      }
+//
+//
+//
+//
 //on ready
 });
