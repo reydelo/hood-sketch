@@ -1,4 +1,6 @@
 $(function(){
+
+  //find neighborhoods of city
   $(":button").on("click", function(){
     var city = $(".input-city").val();
     var state = $(".input-state").val();
@@ -12,9 +14,10 @@ $(function(){
       for(var i = 0; i < data.length; i++){
         $(".hoods").append("<li><a href='#'>" + data[i] + "</a></li>");
       }
-      // $('body').append(html);
     });
   });
+
+  //find data of neighborhood
   $("div").on('click', 'a', function(){
     var city = $(".input-city").val();
     var state = $(".input-state").val();
@@ -29,20 +32,15 @@ $(function(){
     }).done(function(data) {
       console.log(data);
       $('.hood').children().remove();
-      // $(".hood li").remove();
-      // $(".hood h3").remove();
       $('.hood').append('<h3>' + hoodname + ' of ' + city + ', ' + state + '</h3>');
+      // hood characteristics of people
       for(var i = 0; i < data.length; i++){
         $(".hood").append("<h4>" + data[i]['type'] + "</h4>");
         for(var f = 0; f < data[i]['characteristic'].length; f++){
           $(".hood").append("<ol>" + data[i]['characteristic'][f] + "</ol>");
+        }
       }
-    }
     });
 
   });
 });
-
-
-
-//success: function(){ $(".hoods").load("/hoods .hoods") }
