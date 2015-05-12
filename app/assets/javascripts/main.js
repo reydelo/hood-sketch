@@ -63,6 +63,7 @@ $(function(){
                [ 'Price per Square Foot', hood, city, nation],
                [  ' ', parseInt(medianListPrice["values"]["neighborhood"]["value"]), parseInt(medianListPrice["values"]["city"]["value"]), parseInt(medianListPrice["values"]["nation"]["value"])],
 
+
              ]);
 
              var options = {
