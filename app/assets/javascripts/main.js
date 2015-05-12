@@ -52,7 +52,7 @@ $(function(){
         }
       }
       //Median List Price
-      var medianPriceTitle = data[0]["tables"]["table"]["data"]["attributes"][8]['name'];
+      // var medianPriceTitle = data[0]["tables"]["table"]["data"]["attributes"][8]['name'];
 
     });
   });
