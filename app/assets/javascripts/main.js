@@ -77,11 +77,42 @@ $(function(){
           chart: {
             title: medianPriceTitle,
             subtitle: '',
+            'width':500,
+            'height':500
           }
         };
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
         chart.draw(data, options);
       }
+
+      //owner vs renters chart
+      var owners = data[1]["tables"]["table"][0]["data"]["attribute"][0]["values"]["neighborhood"]["value"];
+      var renters = data[1]["tables"]["table"][0]["data"]["attribute"][1]["values"]["neighborhood"]["value"];
+      console.log(owners);
+      console.log(renters);
+        drawPieChart();
+        function drawPieChart() {
+          // Create the data table.
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Type');
+          data.addColumn('number', 'Percent');
+          data.addRows([
+            ['Owners', owners * 100],
+            ['Renters', renters * 100],
+          ]);
+
+          // Set chart options
+          var options = {'title':'Owners vs. Renters',
+                         'width':500,
+                         'height':400};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+        }
+
+
+
     });
   });
 
