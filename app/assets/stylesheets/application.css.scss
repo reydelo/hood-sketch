@@ -2,7 +2,7 @@
 @import 'bootstrap-sprockets';
 
 body {
-  padding-top: 50px;
+  padding: 50px 0;
 }
 
 #search {
@@ -47,19 +47,25 @@ i {
   padding-left: 40px;
 }
 
-
 .fa {
-  font-size: 30px;
-  margin-top: 220px;
+  font-size: 200%;
+  margin-right: 35px;
+  display: block;
+}
+
+.hoods .fa {
+  margin-top: 20px;
 }
 
 .hood .fa {
-  margin-top: 525px;
+
 }
 
 .stats .fa {
   margin-top: 460px;
 }
+
+
 
 img {
   height: 300px;
@@ -67,4 +73,13 @@ img {
 
 .hoods, .stats {
   background-color: #efefef;
+}
+
+.hoods .anchor {
+  margin-top: 350px;
+}
+
+.hood .anchor {
+  margin-top: 50px;
+
 }

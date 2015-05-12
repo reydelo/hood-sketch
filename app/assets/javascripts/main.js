@@ -33,6 +33,7 @@ $(function(){
           $(".hoods .right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
         }
       }
+      $('.hoods').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
     });
   });
 
@@ -58,7 +59,11 @@ $(function(){
         } else {
           $('.hoodInfo').append('<li>' + data[2]["uniqueness"]["category"][i]['characteristic'] + '</li>');
         }
+
       }
+
+      $('.hood').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
+
       //Median List Price
       var medianListPrice = data[0]["tables"]["table"]["data"]["attribute"][8];
       var medianPriceTitle = medianListPrice['name'];
