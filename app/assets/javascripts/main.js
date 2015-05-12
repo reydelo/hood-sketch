@@ -18,7 +18,8 @@ $(function(){
       url: "/hoods",
       data: {"city": city, "state": state }
     }).done(function(data) {
-      // $(".hoods").children().children().remove();
+      $(".hoods li").remove();
+      $(".hoods .title h3").remove();
       // $('.hood').children().remove();
       $('.hoods .title').append("<h3>Neighborhoods of " + city + ', ' + state + "</h3>");
       for(var i = 0; i < data.length; i++){
@@ -46,7 +47,7 @@ $(function(){
       data: {"city": city, "state": state, "hood": hood}
     }).done(function(data) {
       $('.hood').children().remove();
-      $('.hood').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
+      $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
       // hood characteristics of people
       for(var i = 0; i < data[2]["uniqueness"]["category"].length; i++){
         $(".hood").append("<h4>" + data[2]["uniqueness"]["category"][i]['type'] + "</h4>");
