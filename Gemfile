@@ -12,6 +12,7 @@ gem 'json'
 gem 'faraday'
 gem 'jbuilder', '~> 2.0'
 gem 'handlebars_assets'
+gem 'bootstrap-sass', '~>3.3.1'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
