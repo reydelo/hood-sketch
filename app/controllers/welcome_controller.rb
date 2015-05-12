@@ -26,5 +26,20 @@ class WelcomeController < ApplicationController
     render json: @hoods
   end
 
+  def hood
+    if !params["city"] || !params["state"] || !params["hood"]
+      params["city"] = "denver"
+      params["state"] = "co"
+      params["hood"] = "capitolhill"
+    end
+    @data = DataFetcher.new.fetch_hood_sketch(params["city"], params["state"], params["hood"])
+    @hood = []
+    @data["demographics"]["response"]["pages"]["page"][2]["uniqueness"]["category"].each do |stat|
+      @hood << stat
+    end
+    render json: @hood
+
+  end
+
 
 end
