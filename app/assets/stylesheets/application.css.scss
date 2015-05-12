@@ -18,10 +18,11 @@ body {
 a {
   color: inherit;
 }
-ul {
+.hoods li {
   text-align: center;
   margin-left: -40px;
-  margin-top: 325px;
+  list-style-type: none !important;
+
 }
 
 .stats p, .charts img {
@@ -29,9 +30,7 @@ ul {
   padding-top: 35px;
 }
 
-li {
-  list-style-type: none !important;
-}
+
 
 h1 {
   text-align: center;
