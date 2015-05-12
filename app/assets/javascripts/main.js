@@ -41,16 +41,19 @@ $(function(){
       $('.hood').children().remove();
       $('.hood').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
       // hood characteristics of people
-      for(var i = 0; i < data.length; i++){
-        $(".hood").append("<h4>" + data[i]['type'] + "</h4>");
-        if (Array.isArray(data[i]['characteristic'])) {
-        for(var f = 0; f < data[i]['characteristic'].length; f++){
-          $(".hood").append("<li>" + data[i]['characteristic'][f] + "</li>");
+      for(var i = 0; i < data[2]["uniqueness"]["category"].length; i++){
+        $(".hood").append("<h4>" + data[2]["uniqueness"]["category"][i]['type'] + "</h4>");
+        if (Array.isArray(data[2]["uniqueness"]["category"][i]['characteristic'])) {
+        for(var f = 0; f < data[2]["uniqueness"]["category"][i]['characteristic'].length; f++){
+          $(".hood").append("<li>" + data[2]["uniqueness"]["category"][i]['characteristic'][f] + "</li>");
         }
         } else {
-          $('.hood').append('<li>' + data[i]['characteristic'] + '</li>');
+          $('.hood').append('<li>' + data[2]["uniqueness"]["category"][i]['characteristic'] + '</li>');
         }
       }
+      //Median List Price
+      var medianPriceTitle = data[0]["tables"]["table"]["data"]["attributes"][8]['name'];
+
     });
   });
 
