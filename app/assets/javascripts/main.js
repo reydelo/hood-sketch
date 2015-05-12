@@ -52,8 +52,8 @@ $(function(){
         }
       }
       //Median List Price
-      // var medianPriceTitle = data[0]["tables"]["table"]["data"]["attributes"][8]['name'];
-
+      var medianPriceTitle = data[0]["tables"]["table"]["data"]["attribute"][8]['name'];
+      
     });
   });
 
@@ -91,8 +91,8 @@ drawChart()
 
 
 
-google.setOnLoadCallback(drawChart);
-     function drawChart() {
+google.setOnLoadCallback(drawBarChart);
+     function drawBarChart() {
        var data = google.visualization.arrayToDataTable([
          [ '', 'Sales', 'Expenses', 'Profit'],
          [ '' ,1000, 400, 200],
