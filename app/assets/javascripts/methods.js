@@ -22,3 +22,11 @@
       var compareMedianIncome = "The median household income of " + hood + " is " + hoodvscityMedianIncome + " than " + city + " and " + hoodvsnationMedianIncome + " than the nation."
       return compareMedianIncome
     }
+
+  $(function() {
+    $('#pills a').on('click', function(e) {
+      e.preventDefault();
+      $(this).tab('show');
+      $(this).addClass('active');
+     });
+   });

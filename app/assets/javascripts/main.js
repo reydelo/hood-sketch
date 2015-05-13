@@ -36,7 +36,7 @@ $(function(){
       $('.hoods').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
     });
   });
-
+  var globalData;
   //find data of neighborhood
   $("div .hoods").on('click', 'li', function(){
     var city = $(".input-city").val();
@@ -47,6 +47,7 @@ $(function(){
       url: "/hood",
       data: {"city": city, "state": state, "hood": hood}
     }).done(function(data) {
+      globalData = data;
       // $('.hood').children().remove();
       $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
 
@@ -224,17 +225,71 @@ $(function(){
     });
   });
 
-  //on ready
-});
+  $('#renters').on('click', function() {
+    var city = $(".input-city").val();
+    var state = $(".input-state").val();
+    var hood = $(this).text();
+    var nation = 'US';
 
-$(function() {
- $('#pills a').on('click', function(e) {
-   e.preventDefault();
-   $(this).tab('show');
-   $(this).addClass('active');
+
+
+
+    //owner vs renters chart
+    var owners = globalData[1].tables.table[0].data.attribute[0].values.neighborhood.value;
+    var renters = globalData[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+
+    drawPieChart();
+    function drawPieChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Percent');
+      data.addRows([
+        ['Owners', owners * 100],
+        ['Renters', renters * 100],
+      ]);
+      var options = {'title':'Owners vs. Renters',
+      'width':500,
+      'height':400};
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
   });
 
-  $('#renters').on('click', function() {
+  $("#commute").on('click', function() {
+    var city = $(".input-city").val();
+    var state = $(".input-state").val();
+    var hood = $(this).text();
+    var nation = 'US';
+
+    // commute breakdown by population line chart
+    var underTenMin = data[2].tables.table[2].data.attribute[0];
+    var overSixtyMin = data[2].tables.table[2].data.attribute[1];
+    var tenToTwentyMin = data[2].tables.table[2].data.attribute[2];
+    var twentyToThirtyMin = data[2].tables.table[2].data.attribute[3];
+    var thirtyToFortyFiveMin = data[2].tables.table[2].data.attribute[4];
+    var fortyFiveToSixtyMin = data[2].tables.table[2].data.attribute[5];
+    google.setOnLoadCallback(drawLineCommuteChart);
+    drawLineCommuteChart();
+    function drawLineCommuteChart() {
+      var commuteData = google.visualization.arrayToDataTable([
+        ['Commute Time', 'Percent of Population'],
+        [underTenMin.name, underTenMin.value*100],
+        [tenToTwentyMin.name, tenToTwentyMin.value*100],
+        [twentyToThirtyMin.name, twentyToThirtyMin.value*100],
+        [thirtyToFortyFiveMin.name, thirtyToFortyFiveMin.value*100],
+        [fortyFiveToSixtyMin.name, fortyFiveToSixtyMin.value*100],
+        [overSixtyMin.name, overSixtyMin.value*100]
+      ]);
+      var options = {
+        title: 'Commute Time Breakdown for Neighborhood Population',
+        legend: { position: 'bottom' },
+        width: 900,
+        height: 500
+      };
+      var chart = new google.visualization.LineChart(document.getElementById('commute_chart'));
+      chart.draw(commuteData, options);
+    }
+
 
   });
 });
