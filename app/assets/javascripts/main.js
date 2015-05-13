@@ -1,19 +1,8 @@
 
 $(function(){
-
-  //titleize function
-  String.prototype.titleize = function() {
-    var words = this.split(' ');
-    var array = [];
-    for (var i=0; i<words.length; ++i) {
-      array.push(words[i].charAt(0).toUpperCase() + words[i].toLowerCase().slice(1));
-    }
-    return array.join(' ');
-  };
-
   //find neighborhoods of city
   $(":button").on("click", function(){
-    var city = $(".input-city").val();
+    var city = $(".input-city").val().titleize();
     var state = $(".input-state").val();
     $.ajax({
       url: "/hoods",
@@ -68,22 +57,16 @@ $(function(){
     var stats = []
     //Median home price
     stats.push("Median home size in square feet: " + data[1]["tables"]["table"][0]["data"]["attribute"][2]["values"]["city"]["value"]);
+
     //Average Year Built
     stats.push("Average year homes were built: " + data[1]["tables"]["table"][0]["data"]["attribute"][3]["values"]["neighborhood"]["value"]);
     //Median income
     stats.push(medianIncome(data, hood, city, state))
 
-  // for(var i = 0; i < stats.length; i++){
-  //   // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
-  //   // debugger
-  //   if (i%3 === 0) {
-  //     $(".hoods .left-column").append("<li><a href='#'>" + data[i] + "</a></li>");
-  //   } else if(i%2 === 0) {
-  //     $(".hoods .middle-column").append("<li><a href='#'>" + data[i] + "</a></li>");
-  //   } else {
-  //     $(".hoods .right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
-  //   }
-  // }
+  for(var i = 0; i < stats.length; i++){
+      $(".hood-stats").append("<li>" + stats[i] + "</li>");
+
+  }
 
       //Median List Price
       var medianListPrice = data[0].tables.table.data.attribute[8];
@@ -235,6 +218,6 @@ $(function() {
   });
 
   $('nav li').on('click', function() {
-    
+
   });
 });
