@@ -164,6 +164,41 @@ $(function(){
         chart.draw(commuteData, options);
       }
 
+      // relationships chart
+      var divorcedFemale = data[2].tables.table[4].data.attribute[0];
+      var divorcedMale = data[2].tables.table[4].data.attribute[1];
+      var marriedFemale = data[2].tables.table[4].data.attribute[2];
+      var marriedMale = data[2].tables.table[4].data.attribute[3];
+      var singleFemale = data[2].tables.table[4].data.attribute[4];
+      var singleMale = data[2].tables.table[4].data.attribute[5];
+      var widowedFemale = data[2].tables.table[4].data.attribute[6];
+      var widowedMale = data[2].tables.table[4].data.attribute[7];
+
+      // google.setOnLoadCallback(relationshipChart);
+      relationshipChart();
+      function relationshipChart() {
+        var relationshipData =
+        google.visualization.arrayToDataTable([
+          ["Relationship Status", "Portion of Neighborhood"],
+          [singleFemale.name, singleFemale.value*100],
+          [singleMale.name, singleMale.value*100],
+          [divorcedFemale.name, divorcedFemale.value*100],
+          [divorcedMale.name, divorcedMale.value*100],
+          [marriedFemale.name, marriedFemale.value*100],
+          [marriedMale.name, marriedMale.value*100],
+          [widowedFemale.name, widowedFemale.value*100],
+          [widowedMale.name, widowedMale.value*100]
+        ]);
+        var options = {
+          title: 'Relationship Breakdown by Neighborhood',
+          pieHole: 0.2,
+          width: 700,
+          height: 700
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('relationshipChart'));
+        chart.draw(relationshipData, options);
+      }
+
     });
   });
 
