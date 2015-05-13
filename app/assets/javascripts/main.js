@@ -182,8 +182,8 @@ $(function(){
 
     chart.draw(commuteData, options);
     }
-// relationships chart code
 
+    // relationships chart
     var divorcedFemale = data[2]["tables"]["table"][4]["data"]["attribute"][0];
     var divorcedMale = data[2]["tables"]["table"][4]["data"]["attribute"][1];
     var marriedFemale = data[2]["tables"]["table"][4]["data"]["attribute"][2];
@@ -198,7 +198,7 @@ $(function(){
     function relationshipChart() {
       var relationshipData =
       google.visualization.arrayToDataTable([
-        ["Relationship Status", "Proportion of Neighborhood"],
+        ["Relationship Status", "Portion of Neighborhood"],
         [singleFemale["name"], singleFemale['value']*100],
         [singleMale["name"], singleMale['value']*100],
         [divorcedFemale["name"], divorcedFemale['value']*100],
@@ -210,20 +210,16 @@ $(function(){
       ]);
 
     var options = {
-      title: 'Relationship Breakdowns by Neighborhood',
-      pieHole: 0.4
+      title: 'Relationship Breakdown by Neighborhood',
+      pieHole: 0.2,
+      width: 700,
+      height: 700
     };
-
 
     var chart = new google.visualization.PieChart(document.getElementById('relationshipChart'));
     chart.draw(relationshipData, options);
-  }
-debugger
-
+    }
 
     });
   });
-
-
-
 });
