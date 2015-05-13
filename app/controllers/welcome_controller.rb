@@ -38,7 +38,6 @@ class WelcomeController < ApplicationController
       @hood << stat
     end
     render json: @hood
-
   end
 
   def map
@@ -51,6 +50,7 @@ class WelcomeController < ApplicationController
     @data["regionchildren"]["response"]["list"]["region"].each do |name|
       @map << name
     end
+    render json: @map
   end
 
 
