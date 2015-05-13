@@ -85,11 +85,12 @@ $(function(){
         chart.draw(data, options);
       }
 
+
+
       //owner vs renters chart
+
       var owners = data[1]["tables"]["table"][0]["data"]["attribute"][0]["values"]["neighborhood"]["value"];
            var renters = data[1]["tables"]["table"][0]["data"]["attribute"][1]["values"]["neighborhood"]["value"];
-           console.log(owners);
-           console.log(renters);
              drawPieChart();
              function drawPieChart() {
                // Create the data table.
@@ -112,6 +113,7 @@ $(function(){
              }
 
         //age breakdown line chart
+
         var underTen = data[2]["tables"]["table"][1]["data"]["attribute"][1];
         var underTwenty = data[2]["tables"]["table"][1]["data"]["attribute"][2];
         var underThirty = data[2]["tables"]["table"][1]["data"]["attribute"][3];
@@ -121,31 +123,64 @@ $(function(){
         var underSeventy = data[2]["tables"]["table"][1]["data"]["attribute"][7];
         var overSeventy = data[2]["tables"]["table"][1]["data"]["attribute"][0];
 
-        drawLineChart();
-        function drawLineChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Age', 'Percent of Population'],
-        [underTen["name"], underTen['value']*100],
-        [underTwenty["name"], underTwenty['value']*100],
-        [underThirty["name"], underThirty['value']*100],
-        [underFourty["name"], underFourty['value']*100],
-        [underFifty["name"], underFifty['value']*100],
-        [underSixty["name"], underSixty['value']*100],
-        [underSeventy["name"], underSeventy['value']*100],
-        [overSeventy["name"], overSeventy['value']*100]
-      ]);
+        drawLineAgeChart();
+        function drawLineAgeChart() {
+          var data = google.visualization.arrayToDataTable([
+          ['Age', 'Percent of Population'],
+          [underTen["name"], underTen['value']*100],
+          [underTwenty["name"], underTwenty['value']*100],
+          [underThirty["name"], underThirty['value']*100],
+          [underFourty["name"], underFourty['value']*100],
+          [underFifty["name"], underFifty['value']*100],
+          [underSixty["name"], underSixty['value']*100],
+          [underSeventy["name"], underSeventy['value']*100],
+          [overSeventy["name"], overSeventy['value']*100]
+        ]);
 
       var options = {
-        // chart: {
           title: 'Age Breakdown by Decade',
           legend: { position: 'bottom' },
+          width: 900,
+          height: 500
+        };
+
+      var chart = new google.visualization.LineChart(document.getElementById('age_chart'));
+
+      chart.draw(data, options);
+      }
+
+
+      // commute breakdown by population line chart
+
+      var underTenMin = data[2]["tables"]["table"][2]["data"]["attribute"][0];
+      var overSixtyMin = data[2]["tables"]["table"][2]["data"]["attribute"][1];
+      var tenToTwentyMin = data[2]["tables"]["table"][2]["data"]["attribute"][2];
+      var twentyToThirtyMin = data[2]["tables"]["table"][2]["data"]["attribute"][3];
+      var thirtyToFortyFiveMin = data[2]["tables"]["table"][2]["data"]["attribute"][4];
+      var fortyFiveToSixtyMin = data[2]["tables"]["table"][2]["data"]["attribute"][5];
+      google.setOnLoadCallback(drawLineCommuteChart);
+      drawLineCommuteChart();
+      function drawLineCommuteChart() {
+      var commuteData = google.visualization.arrayToDataTable([
+      ['Commute Time', 'Percent of Population'],
+      [underTenMin["name"], underTenMin['value']*100],
+      [overSixtyMin["name"], overSixtyMin['value']*100],
+      [tenToTwentyMin["name"], tenToTwentyMin['value']*100],
+      [twentyToThirtyMin["name"], twentyToThirtyMin['value']*100],
+      [thirtyToFortyFiveMin["name"], thirtyToFortyFiveMin['value']*100],
+      [fortyFiveToSixtyMin["name"], fortyFiveToSixtyMin['value']*100],
+    ]);
+
+    var options = {
+        title: 'Commute Time Breakdown for Neighborhood Population',
+        legend: { position: 'bottom' },
         width: 900,
         height: 500
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    var chart = new google.visualization.LineChart(document.getElementById('commute_chart'));
 
-      chart.draw(data, options);
+    chart.draw(commuteData, options);
     }
 
     });
