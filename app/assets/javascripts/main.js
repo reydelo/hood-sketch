@@ -64,7 +64,7 @@ $(function(){
 
       $('.hood').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
 
-      //Median List Price
+      //Median List Price Bar Chart
       var medianListPrice = data[0]["tables"]["table"]["data"]["attribute"][8];
       var medianPriceTitle = medianListPrice['name'];
       drawBarChart();
@@ -149,7 +149,6 @@ $(function(){
       chart.draw(data, options);
       }
 
-
       // commute breakdown by population line chart
 
       var underTenMin = data[2]["tables"]["table"][2]["data"]["attribute"][0];
@@ -158,6 +157,7 @@ $(function(){
       var twentyToThirtyMin = data[2]["tables"]["table"][2]["data"]["attribute"][3];
       var thirtyToFortyFiveMin = data[2]["tables"]["table"][2]["data"]["attribute"][4];
       var fortyFiveToSixtyMin = data[2]["tables"]["table"][2]["data"]["attribute"][5];
+
       google.setOnLoadCallback(drawLineCommuteChart);
       drawLineCommuteChart();
       function drawLineCommuteChart() {
