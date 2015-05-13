@@ -182,65 +182,48 @@ $(function(){
 
     chart.draw(commuteData, options);
     }
+// relationships chart code
+
+    var divorcedFemale = data[2]["tables"]["table"][4]["data"]["attribute"][0];
+    var divorcedMale = data[2]["tables"]["table"][4]["data"]["attribute"][1];
+    var marriedFemale = data[2]["tables"]["table"][4]["data"]["attribute"][2];
+    var marriedMale = data[2]["tables"]["table"][4]["data"]["attribute"][3];
+    var singleFemale = data[2]["tables"]["table"][4]["data"]["attribute"][4];
+    var singleMale = data[2]["tables"]["table"][4]["data"]["attribute"][5];
+    var widowedFemale = data[2]["tables"]["table"][4]["data"]["attribute"][6];
+    var widowedMale = data[2]["tables"]["table"][4]["data"]["attribute"][7];
+
+    // google.setOnLoadCallback(relationshipChart);
+    relationshipChart();
+    function relationshipChart() {
+      var relationshipData =
+      google.visualization.arrayToDataTable([
+        ["Relationship Status", "Proportion of Neighborhood"],
+        [singleFemale["name"], singleFemale['value']*100],
+        [singleMale["name"], singleMale['value']*100],
+        [divorcedFemale["name"], divorcedFemale['value']*100],
+        [divorcedMale["name"], divorcedMale['value']*100],
+        [marriedFemale["name"], marriedFemale['value']*100],
+        [marriedMale["name"], marriedMale['value']*100],
+        [widowedFemale["name"], widowedFemale['value']*100],
+        [widowedMale["name"], widowedMale['value']*100]
+      ]);
+
+    var options = {
+      title: 'Relationship Breakdowns by Neighborhood',
+      pieHole: 0.4
+    };
+
+
+    var chart = new google.visualization.PieChart(document.getElementById('relationshipChart'));
+    chart.draw(relationshipData, options);
+  }
+debugger
+
 
     });
   });
 
 
-  //GOOGLE CHARTS
-  // Set a callback to run when the Google Visualization API is loaded.
-  //   google.setOnLoadCallback(drawPieChart);
-  //
-  //   // Callback that creates and populates a data table,
-  //   // instantiates the pie chart, passes in the data and
-  //   // draws it.
-  //   function drawPieChart() {
-  //     // Create the data table.
-  //     var data = new google.visualization.DataTable();
-  //     data.addColumn('string', 'Topping');
-  //     data.addColumn('number', 'Slices');
-  //     data.addRows([
-  //       ['Mushrooms', 3],
-  //       ['Onions', 1],
-  //       ['Olives', 1],
-  //       ['Zucchini', 1],
-  //       ['Pepperoni', 2]
-  //     ]);
-  //
-  //     // Set chart options
-  //     var options = {'title':'How Much Pizza I Ate Last Night',
-  //                    'width':400,
-  //                    'height':300};
-  //
-  //     // Instantiate and draw our chart, passing in some options.
-  //     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-  //     chart.draw(data, options);
-  //   }
-  //
-  //
-  //
-  // google.setOnLoadCallback(drawBarChart);
-  //      function drawBarChart() {
-  //        var data = google.visualization.arrayToDataTable([
-  //          [ '', 'Sales', 'Expenses', 'Profit'],
-  //          [ '' ,1000, 400, 200],
-  //
-  //        ]);
-  //
-  //        var options = {
-  //          chart: {
-  //            title: 'Company Performance',
-  //            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-  //          }
-  //        };
-  //
-  //        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-  //
-  //        chart.draw(data, options);
-  //      }
-  //
-  //
-  //
-  //
-  //on ready
+
 });
