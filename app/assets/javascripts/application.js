@@ -15,4 +15,5 @@
 //= require bootstrap-sprockets
 //= require handlebars
 //= require turbolinks
+//= require methods.js  
 //= require_tree .
