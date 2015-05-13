@@ -212,7 +212,7 @@ $(function() {
    $(this).addClass('active');
   });
 
-  $('nav li').on('click', function() {
-    
+  $('#renters').on('click', function() {
+
   });
 });
