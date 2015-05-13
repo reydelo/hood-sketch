@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
     @hoods = []
     @data["regionchildren"]["response"]["list"]["region"].each do |name|
-      @hoods << name["name"]
+      @hoods << name
     end
     # render :json
   end
@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
     @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
     @hoods = []
     @data["regionchildren"]["response"]["list"]["region"].each do |name|
-      @hoods << name["name"]
+      @hoods << name
     end
     render json: @hoods
   end
@@ -39,6 +39,18 @@ class WelcomeController < ApplicationController
     end
     render json: @hood
 
+  end
+
+  def map
+    if !params["city"] || !params["state"]
+      params["city"] = "denver"
+      params["state"] = "co"
+    end
+    @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
+    @map = []
+    @data["regionchildren"]["response"]["list"]["region"].each do |name|
+      @map << name
+    end
   end
 
 
