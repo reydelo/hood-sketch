@@ -1,16 +1,6 @@
 class WelcomeController < ApplicationController
 
   def index
-    if !params["city"] || !params["state"]
-      params["city"] = "denver"
-      params["state"] = "co"
-    end
-    @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
-    @hoods = []
-    @data["regionchildren"]["response"]["list"]["region"].each do |name|
-      @hoods << name["name"]
-    end
-    # render :json
   end
 
   def hoods
@@ -21,7 +11,7 @@ class WelcomeController < ApplicationController
     @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
     @hoods = []
     @data["regionchildren"]["response"]["list"]["region"].each do |name|
-      @hoods << name["name"]
+      @hoods << name
     end
     render json: @hoods
   end
@@ -38,8 +28,6 @@ class WelcomeController < ApplicationController
       @hood << stat
     end
     render json: @hood
-
   end
-
 
 end
