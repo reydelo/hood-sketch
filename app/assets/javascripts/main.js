@@ -1,3 +1,4 @@
+
 $(function(){
 
   //titleize function
@@ -64,7 +65,31 @@ $(function(){
 
       $('.hood').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
 
-      //Median List Price
+
+  //Hood Stats
+    var stats = []
+    //Median home price
+    stats.push("Median home size in square feet: " + data[1]["tables"]["table"][0]["data"]["attribute"][2]["values"]["city"]["value"]);
+    //Average Year Built
+    stats.push("Average year homes were built: " + data[1]["tables"]["table"][0]["data"]["attribute"][3]["values"]["neighborhood"]["value"]);
+    //Median income
+    stats.push(medianIncome(data, hood, city, state))
+
+  // for(var i = 0; i < stats.length; i++){
+  //   // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
+  //   // debugger
+  //   if (i%3 === 0) {
+  //     $(".hoods .left-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+  //   } else if(i%2 === 0) {
+  //     $(".hoods .middle-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+  //   } else {
+  //     $(".hoods .right-column").append("<li><a href='#'>" + data[i] + "</a></li>");
+  //   }
+  // }
+
+
+
+      //Median List Price Chart
       var medianListPrice = data[0]["tables"]["table"]["data"]["attribute"][8];
       var medianPriceTitle = medianListPrice['name'];
       drawBarChart();
