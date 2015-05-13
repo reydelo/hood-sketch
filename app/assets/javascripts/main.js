@@ -226,3 +226,15 @@ $(function(){
 
   //on ready
 });
+
+$(function() {
+ $('#pills a').on('click', function(e) {
+   e.preventDefault();
+   $(this).tab('show');
+   $(this).addClass('active');
+  });
+
+  $('nav li').on('click', function() {
+    
+  });
+});
