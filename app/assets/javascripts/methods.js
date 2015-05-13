@@ -28,6 +28,38 @@ function medianIncome(data, hood, city, state){
     hoodvsnationMedianIncome = parseInt(Math.floor(((hoodMedianIncome - nationMedianIncome)/nationMedianIncome)*100)) + "% more"
   }
 
+
   var compareMedianIncome = "The median household income of " + hood + " is " + hoodvscityMedianIncome + " than " + city + " and " + hoodvsnationMedianIncome + " than the nation."
   return compareMedianIncome
 }
+
+function homesWithKids(data, hood, city, state){
+  var hoodHWK = parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["neighborhood"]["value"]);
+  var cityWK = parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["city"]["value"]);
+  var nationHWK =  parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["nation"]["value"]);
+  debugger
+  var hoodvscityWK
+  if(hoodHWK < cityWK){
+    hoodvscityWK = parseInt(Math.floor(((cityWK - hoodHWK)/cityWK)*100)) + "% less"
+  }else{
+    hoodvscityWK = parseInt(Math.floor(((hoodHWK - cityWK)/cityWK)*100)) + "% more"
+  }
+  var hoodvsnationHWK
+  if(hoodHWK < nationHWK){
+    hoodvsnationHWK = parseInt(Math.floor(((nationHWK - hoodHWK)/nationHWK)*100)) + "% less"
+  }else{
+    hoodvsnationHWK = parseInt(Math.floor(((hoodHWK - nationHWK)/nationHWK)*100)) + "% more"
+  }
+
+
+  var compareHWK = "The number of household with kids in " + hood + " is " + hoodvscityWK + " than " + city + " and " + hoodvsnationHWK + " than the nation."
+  return compareHWK
+}
+
+$(function() {
+  $('#pills a').on('click', function(e) {
+    e.preventDefault();
+    $(this).tab('show');
+    $(this).addClass('active');
+   });
+ });
