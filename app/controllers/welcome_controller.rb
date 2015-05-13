@@ -1,6 +1,13 @@
 class WelcomeController < ApplicationController
 
   def index
+    if !params["city"] || !params["state"]
+      params["city"] = "denver"
+      params["state"] = "co"
+    end
+    @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
+    @lat = @data["regionchildren"]["response"]["region"]["latitude"]
+    @long = @data["regionchildren"]["response"]["region"]["longitude"]
   end
 
   def hoods
@@ -9,6 +16,8 @@ class WelcomeController < ApplicationController
       params["state"] = "co"
     end
     @data = DataFetcher.new.fetch_hoods(params["city"], params["state"])
+    @lat = @data["regionchildren"]["response"]["region"]["latitude"]
+    @long = @data["regionchildren"]["response"]["region"]["longitude"]
     @hoods = []
     @data["regionchildren"]["response"]["list"]["region"].each do |name|
       @hoods << name
