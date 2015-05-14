@@ -45,7 +45,7 @@ $(function(){
       $('.hoodInfo li').remove();
       $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
       // hood characteristics of people
-      for(var i = 0; i < data[2].uniqueness.category.length; i++){
+      for(var i = 0; i < globalData[2].uniqueness.category.length; i++){
         $(".hoodInfo").append("<h4>" + data[2].uniqueness.category[i].type + "</h4>");
         if (Array.isArray(data[2].uniqueness.category[i].characteristic)) {
           for(var f = 0; f < data[2].uniqueness.category[i].characteristic.length; f++){
@@ -58,74 +58,40 @@ $(function(){
       $('.hood').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
 
       //Hood Stats
-      var stats = [];
-      //City median home size (hood median home size is not available)
-      stats.push(city + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
-      //Average Year Built
-      stats.push( hood + " average home age: " + data[1].tables.table[0].data.attribute[3].values.neighborhood.value);
-      stats.push( city + " average home age: " + data[1].tables.table[0].data.attribute[3].values.city.value);
-      //Median income
-      stats.push(medianIncome(data, hood, city, state));
-      stats.push(homesWithKids(data, hood, city, state));
+    var stats = [];
+    //City median home size (hood median home size is not available)
+    stats.push(city + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
+    //Average Year Built
+    stats.push( hood + " average home age: " + data[1].tables.table[0].data.attribute[3].values.neighborhood.value);
+    stats.push( city + " average home age: " + data[1].tables.table[0].data.attribute[3].values.city.value);
+    //Median income
+    stats.push(medianIncome(data, hood, city, state));
+    stats.push(homesWithKids(data, hood, city, state));
 
-      for(var x = 0; x < stats.length; x++){
-        $(".hood-stats").append("<li>" + stats[x] + "</li>");
-      }
+    for(var x = 0; x < stats.length; x++){
+      $(".hood-stats").append("<li>" + stats[x] + "</li>");
+    }
 
-      // owner vs renters chart
-      var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
-      var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
-      drawPieChart();
-      function drawPieChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Type');
-        data.addColumn('number', 'Percent');
-        data.addRows([
-          ['Owners', owners * 100],
-          ['Renters', renters * 100],
-        ]);
-        var options = {'title':'Owners vs. Renters',
-        'width':500,
-        'height':400};
-        var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
-        chart.draw(data, options);
-      }
+    // owner vs renters chart
+    var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
+    var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+    drawPieChart();
+    function drawPieChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Percent');
+      data.addRows([
+        ['Owners', owners * 100],
+        ['Renters', renters * 100],
+      ]);
+      var options = {'title':'Owners vs. Renters',
+      'width':500,
+      'height':400};
+      var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
+      chart.draw(data, options);
+    }
+  });
 
-      // relationships chart
-      // var divorcedFemale = data[2].tables.table[4].data.attribute[0];
-      // var divorcedMale = data[2].tables.table[4].data.attribute[1];
-      // var marriedFemale = data[2].tables.table[4].data.attribute[2];
-      // var marriedMale = data[2].tables.table[4].data.attribute[3];
-      // var singleFemale = data[2].tables.table[4].data.attribute[4];
-      // var singleMale = data[2].tables.table[4].data.attribute[5];
-      // var widowedFemale = data[2].tables.table[4].data.attribute[6];
-      // var widowedMale = data[2].tables.table[4].data.attribute[7];
-      //
-      // relationshipChart();
-      // function relationshipChart() {
-      //   var relationshipData =
-      //   google.visualization.arrayToDataTable([
-      //     ["Relationship Status", "Portion of Neighborhood"],
-      //     [singleFemale.name, singleFemale.value*100],
-      //     [singleMale.name, singleMale.value*100],
-      //     [divorcedFemale.name, divorcedFemale.value*100],
-      //     [divorcedMale.name, divorcedMale.value*100],
-      //     [marriedFemale.name, marriedFemale.value*100],
-      //     [marriedMale.name, marriedMale.value*100],
-      //     [widowedFemale.name, widowedFemale.value*100],
-      //     [widowedMale.name, widowedMale.value*100]
-      //   ]);
-      //   var options = {
-      //     title: 'Relationship Breakdown by Neighborhood',
-      //     pieHole: 0.2,
-      //     width: 700,
-      //     height: 700
-      //   };
-      //   var chart = new google.visualization.PieChart(document.getElementById('relationshipChart'));
-      //   chart.draw(relationshipData, options);
-      // }
-
-    });
   });
 
   $('#renters').on('click', function() {
@@ -246,6 +212,45 @@ $(function(){
       };
       var chart = new google.charts.Bar(document.getElementById('charts_div'));
       chart.draw(data, options);
+    }
+  });
+
+  $("#relationship").on('click', function() {
+    var city = $(".input-city").val();
+    var state = $(".input-state").val();
+    var hood = $(this).text();
+    var nation = 'US';
+    // relationships donut chart
+    var divorcedFemale = globalData[2].tables.table[4].data.attribute[0];
+    var divorcedMale = globalData[2].tables.table[4].data.attribute[1];
+    var marriedFemale = globalData[2].tables.table[4].data.attribute[2];
+    var marriedMale = globalData[2].tables.table[4].data.attribute[3];
+    var singleFemale = globalData[2].tables.table[4].data.attribute[4];
+    var singleMale = globalData[2].tables.table[4].data.attribute[5];
+    var widowedFemale = globalData[2].tables.table[4].data.attribute[6];
+    var widowedMale = globalData[2].tables.table[4].data.attribute[7];
+    relationshipChart();
+    function relationshipChart() {
+      var relationshipData =
+      google.visualization.arrayToDataTable([
+        ["Relationship Status", "Portion of Neighborhood"],
+        [singleFemale.name, singleFemale.value*100],
+        [singleMale.name, singleMale.value*100],
+        [divorcedFemale.name, divorcedFemale.value*100],
+        [divorcedMale.name, divorcedMale.value*100],
+        [marriedFemale.name, marriedFemale.value*100],
+        [marriedMale.name, marriedMale.value*100],
+        [widowedFemale.name, widowedFemale.value*100],
+        [widowedMale.name, widowedMale.value*100]
+      ]);
+      var options = {
+        title: 'Relationship Breakdown by Neighborhood',
+        pieHole: 0.2,
+        width: 700,
+        height: 700
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
+      chart.draw(relationshipData, options);
     }
   });
 
