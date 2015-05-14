@@ -1,4 +1,3 @@
-
 $(function(){
   //find neighborhoods of city
   $(":button").on("click", function(){
@@ -13,7 +12,9 @@ $(function(){
       $('.hood h3').remove();
       $('.hoodInfo h4').remove();
       $('.hoodInfo li').remove();
-      // $('.hood').children().remove();
+      $('.hoods i').remove();
+      $(".hood-stats li").remove();
+      $('#charts_div').children().remove();
       $('.hoods .title').append("<h3>Neighborhoods of " + city + ', ' + state + "</h3>");
       for(var i = 0; i < data.length; i++){
         // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
@@ -29,14 +30,15 @@ $(function(){
     });
     $('html, body').animate({
       scrollTop: $('.hoods').offset().top
-    }, 2000);
+    }, 1500);
   });
   var globalData;
+  var hood;
   //find data of neighborhood
   $("div .hoods").on('click', 'li', function(){
     var city = $(".input-city").val().titleize();
     var state = $(".input-state").val().toUpperCase();
-    var hood = $(this).text();
+    hood = $(this).text();
     var nation = 'US';
     $.ajax({
       url: "/hood",
@@ -46,6 +48,9 @@ $(function(){
       $('.hood h3').remove();
       $('.hoodInfo h4').remove();
       $('.hoodInfo li').remove();
+      $('.hood i').remove();
+      $(".hood-stats li").remove();
+      $('#charts_div').children().remove();
       $('.hood .title').append('<h3>' + hood + ' of ' + city.titleize() + ', ' + state + '</h3>');
       // hood characteristics of people
       for(var i = 0; i < globalData[2].uniqueness.category.length; i++){
@@ -70,7 +75,6 @@ $(function(){
       //Median income
       stats.push(medianIncome(data, hood, city, state));
       stats.push(homesWithKids(data, hood, city, state));
-      var stats = [];
       //City median home size (hood median home size is not available)
       stats.push(city + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
       //Average Year Built
@@ -103,10 +107,13 @@ $(function(){
       chart.draw(data, options);
     }
   });
-
+  $('html, body').animate({
+    scrollTop: $('.hood').offset().top
+  }, 1500);
   });
 
   $('#renters').on('click', function() {
+
     if((owners * 100) > 50) {
       $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are home owners.</p>');
     }
@@ -116,8 +123,8 @@ $(function(){
     else {
       $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.');
     }
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var hood = $(this).text();
     var nation = 'US';
     //owner vs renters chart
@@ -141,9 +148,8 @@ $(function(){
   });
 
   $("#commute").on('click', function() {
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
-    var hood = $(this).text();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var nation = 'US';
     // commute breakdown by population line chart
     var underTenMin = globalData[2].tables.table[2].data.attribute[0];
@@ -175,9 +181,8 @@ $(function(){
   });
 
   $("#age").on('click', function() {
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
-    var hood = $(this).text();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var nation = 'US';
     // age breakdown line chart
     var underTen = globalData[2].tables.table[1].data.attribute[1];
@@ -212,9 +217,8 @@ $(function(){
   });
 
   $("#price").on('click', function() {
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
-    var hood = $(this).text();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var nation = 'US';
     // Median List Price
     var medianListPrice = globalData[0].tables.table.data.attribute[8];
@@ -237,9 +241,8 @@ $(function(){
   });
 
   $("#relationship").on('click', function() {
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
-    var hood = $(this).text();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var nation = 'US';
     // relationships donut chart
     var divorcedFemale = globalData[2].tables.table[4].data.attribute[0];
