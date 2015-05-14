@@ -72,27 +72,6 @@ $(function(){
         $(".hood-stats").append("<li>" + stats[x] + "</li>");
       }
 
-      //Median List Price
-      // var medianListPrice = data[0].tables.table.data.attribute[8];
-      // var medianPriceTitle = medianListPrice.name;
-      // drawBarChart();
-      // function drawBarChart() {
-      //   var data = google.visualization.arrayToDataTable([
-      //     [ 'Price per Square Foot', hood, city, nation],
-      //     [  ' ', parseInt(medianListPrice.values.neighborhood.value), parseInt(medianListPrice.values.city.value), parseInt(medianListPrice.values.nation.value)],
-      //   ]);
-      //   var options = {
-      //     chart: {
-      //       title: medianPriceTitle,
-      //       subtitle: '',
-      //       'width':500,
-      //       'height':500
-      //     }
-      //   };
-      //   var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-      //   chart.draw(data, options);
-      // }
-
       // owner vs renters chart
       var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
       var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
@@ -199,7 +178,6 @@ $(function(){
         [overSixtyMin.name, overSixtyMin.value*100]
       ]);
       var options = {
-        title: 'Commute Time Breakdown for Neighborhood Population',
         legend: { position: 'bottom' },
         width: 900,
         height: 500
@@ -237,12 +215,36 @@ $(function(){
         [overSeventy.name, overSeventy.value*100]
       ]);
       var options = {
-        title: 'Age Breakdown by Decade',
         legend: { position: 'bottom' },
         width: 900,
         height: 500
       };
       var chart = new google.visualization.LineChart(document.getElementById('charts_div'));
+      chart.draw(data, options);
+    }
+  });
+
+  $("#price").on('click', function() {
+    var city = $(".input-city").val();
+    var state = $(".input-state").val();
+    var hood = $(this).text();
+    var nation = 'US';
+    // Median List Price
+    var medianListPrice = globalData[0].tables.table.data.attribute[8];
+    var medianPriceTitle = medianListPrice.name;
+    drawBarChart();
+    function drawBarChart() {
+      var data = google.visualization.arrayToDataTable([
+        [ 'Price per Square Foot', hood, city, nation],
+        [  ' ', parseInt(medianListPrice.values.neighborhood.value), parseInt(medianListPrice.values.city.value), parseInt(medianListPrice.values.nation.value)],
+      ]);
+      var options = {
+        chart: {
+          'width':500,
+          'height':500
+        }
+      };
+      var chart = new google.charts.Bar(document.getElementById('charts_div'));
       chart.draw(data, options);
     }
   });
