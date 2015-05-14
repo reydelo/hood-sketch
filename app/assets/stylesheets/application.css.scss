@@ -1,25 +1,29 @@
 @import 'bootstrap';
 @import 'bootstrap-sprockets';
-
-body {
-}
-
 #search {
   background-image: url("denver_skyline.jpg");
   background-size: cover;
   max-width: 100%;
   max-height: 100%;
   opacity: 0.6;
-  filter: alpha(opacity=40);
+  // filter: alpha(opacity=40);
   background-repeat: no-repeat;
-  height: 325px;
-
+  background-position: center bottom;
+  height: 100vh;
 }
 
 .form-inline {
   text-align: center;
   height: 100px;
   padding: 50px 0;
+}
+
+.form-group {
+  padding: 50px;
+}
+
+#map-canvas {
+  display: none;
 }
 
 a {
@@ -41,7 +45,7 @@ a {
 
 h1 {
   text-align: center;
-}
+  }
 
 i {
   text-align: center;

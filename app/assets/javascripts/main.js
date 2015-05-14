@@ -27,6 +27,9 @@ $(function(){
       }
       $('.hoods').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
     });
+    $('html, body').animate({
+      scrollTop: $('.hoods').offset().top
+    }, 2000);
   });
   var globalData;
   //find data of neighborhood
