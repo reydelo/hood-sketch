@@ -1,5 +1,11 @@
 @import 'bootstrap';
 @import 'bootstrap-sprockets';
+@import url(http://fonts.googleapis.com/css?family=Palanquin:200,400);
+
+body {
+  font-family: 'Palanquin', sans-serif;
+}
+
 #search {
   background-image: url("denver_skyline.jpg");
   background-size: cover;
@@ -78,10 +84,6 @@ i {
 
 img {
   height: 300px;
-}
-
-.hoods, .stats {
-  background-color: #efefef;
 }
 
 .hoods .anchor {
