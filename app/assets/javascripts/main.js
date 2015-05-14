@@ -244,7 +244,6 @@ $(function(){
         [widowedMale.name, widowedMale.value*100]
       ]);
       var options = {
-        title: 'Relationship Breakdown by Neighborhood',
         pieHole: 0.2,
         width: 700,
         height: 700
