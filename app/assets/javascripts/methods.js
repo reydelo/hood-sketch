@@ -37,7 +37,7 @@ function homesWithKids(data, hood, city, state){
   var hoodHWK = parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["neighborhood"]["value"]);
   var cityWK = parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["city"]["value"]);
   var nationHWK =  parseFloat(data[2]["tables"]["table"][0]["data"]["attribute"][4]["values"]["nation"]["value"]);
-  debugger
+
   var hoodvscityWK
   if(hoodHWK < cityWK){
     hoodvscityWK = parseInt(Math.floor(((cityWK - hoodHWK)/cityWK)*100)) + "% less"
