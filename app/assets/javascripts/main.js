@@ -93,85 +93,24 @@ $(function(){
       //   chart.draw(data, options);
       // }
 
-      //owner vs renters chart
-      // var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
-      // var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
-      // drawPieChart();
-      // function drawPieChart() {
-      //   var data = new google.visualization.DataTable();
-      //   data.addColumn('string', 'Type');
-      //   data.addColumn('number', 'Percent');
-      //   data.addRows([
-      //     ['Owners', owners * 100],
-      //     ['Renters', renters * 100],
-      //   ]);
-      //   var options = {'title':'Owners vs. Renters',
-      //   'width':500,
-      //   'height':400};
-      //   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-      //   chart.draw(data, options);
-      // }
-
-      //age breakdown line chart
-      // var underTen = data[2].tables.table[1].data.attribute[1];
-      // var underTwenty = data[2].tables.table[1].data.attribute[2];
-      // var underThirty = data[2].tables.table[1].data.attribute[3];
-      // var underFourty = data[2].tables.table[1].data.attribute[4];
-      // var underFifty = data[2].tables.table[1].data.attribute[5];
-      // var underSixty = data[2].tables.table[1].data.attribute[6];
-      // var underSeventy = data[2].tables.table[1].data.attribute[7];
-      // var overSeventy = data[2].tables.table[1].data.attribute[0];
-      // drawLineAgeChart();
-      // function drawLineAgeChart() {
-      //   var data = google.visualization.arrayToDataTable([
-      //     ['Age', 'Percent of Population'],
-      //     [underTen.name, underTen.value*100],
-      //     [underTwenty.name, underTwenty.value*100],
-      //     [underThirty.name, underThirty.value*100],
-      //     [underFourty.name, underFourty.value*100],
-      //     [underFifty.name, underFifty.value*100],
-      //     [underSixty.name, underSixty.value*100],
-      //     [underSeventy.name, underSeventy.value*100],
-      //     [overSeventy.name, overSeventy.value*100]
-      //   ]);
-      //   var options = {
-      //     title: 'Age Breakdown by Decade',
-      //     legend: { position: 'bottom' },
-      //     width: 900,
-      //     height: 500
-      //   };
-      //   var chart = new google.visualization.LineChart(document.getElementById('age_chart'));
-      //   chart.draw(data, options);
-      // }
-
-      // commute breakdown by population line chart
-      // var underTenMin = data[2].tables.table[2].data.attribute[0];
-      // var overSixtyMin = data[2].tables.table[2].data.attribute[1];
-      // var tenToTwentyMin = data[2].tables.table[2].data.attribute[2];
-      // var twentyToThirtyMin = data[2].tables.table[2].data.attribute[3];
-      // var thirtyToFortyFiveMin = data[2].tables.table[2].data.attribute[4];
-      // var fortyFiveToSixtyMin = data[2].tables.table[2].data.attribute[5];
-      // google.setOnLoadCallback(drawLineCommuteChart);
-      // drawLineCommuteChart();
-      // function drawLineCommuteChart() {
-      //   var commuteData = google.visualization.arrayToDataTable([
-      //     ['Commute Time', 'Percent of Population'],
-      //     [underTenMin.name, underTenMin.value*100],
-      //     [tenToTwentyMin.name, tenToTwentyMin.value*100],
-      //     [twentyToThirtyMin.name, twentyToThirtyMin.value*100],
-      //     [thirtyToFortyFiveMin.name, thirtyToFortyFiveMin.value*100],
-      //     [fortyFiveToSixtyMin.name, fortyFiveToSixtyMin.value*100],
-      //     [overSixtyMin.name, overSixtyMin.value*100]
-      //   ]);
-      //   var options = {
-      //     title: 'Commute Time Breakdown for Neighborhood Population',
-      //     legend: { position: 'bottom' },
-      //     width: 900,
-      //     height: 500
-      //   };
-      //   var chart = new google.visualization.LineChart(document.getElementById('commute_chart'));
-      //   chart.draw(commuteData, options);
-      // }
+      // owner vs renters chart
+      var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
+      var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+      drawPieChart();
+      function drawPieChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Percent');
+        data.addRows([
+          ['Owners', owners * 100],
+          ['Renters', renters * 100],
+        ]);
+        var options = {'title':'Owners vs. Renters',
+        'width':500,
+        'height':400};
+        var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
+        chart.draw(data, options);
+      }
 
       // relationships chart
       // var divorcedFemale = data[2].tables.table[4].data.attribute[0];
@@ -211,7 +150,6 @@ $(function(){
   });
 
   $('#renters').on('click', function() {
-
     var city = $(".input-city").val();
     var state = $(".input-state").val();
     var hood = $(this).text();
@@ -268,6 +206,44 @@ $(function(){
       };
       var chart = new google.visualization.LineChart(document.getElementById('charts_div'));
       chart.draw(commuteData, options);
+    }
+  });
+
+  $("#age").on('click', function() {
+    var city = $(".input-city").val();
+    var state = $(".input-state").val();
+    var hood = $(this).text();
+    var nation = 'US';
+    // age breakdown line chart
+    var underTen = globalData[2].tables.table[1].data.attribute[1];
+    var underTwenty = globalData[2].tables.table[1].data.attribute[2];
+    var underThirty = globalData[2].tables.table[1].data.attribute[3];
+    var underFourty = globalData[2].tables.table[1].data.attribute[4];
+    var underFifty = globalData[2].tables.table[1].data.attribute[5];
+    var underSixty = globalData[2].tables.table[1].data.attribute[6];
+    var underSeventy = globalData[2].tables.table[1].data.attribute[7];
+    var overSeventy = globalData[2].tables.table[1].data.attribute[0];
+    drawLineAgeChart();
+    function drawLineAgeChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Age', 'Percent of Population'],
+        [underTen.name, underTen.value*100],
+        [underTwenty.name, underTwenty.value*100],
+        [underThirty.name, underThirty.value*100],
+        [underFourty.name, underFourty.value*100],
+        [underFifty.name, underFifty.value*100],
+        [underSixty.name, underSixty.value*100],
+        [underSeventy.name, underSeventy.value*100],
+        [overSeventy.name, overSeventy.value*100]
+      ]);
+      var options = {
+        title: 'Age Breakdown by Decade',
+        legend: { position: 'bottom' },
+        width: 900,
+        height: 500
+      };
+      var chart = new google.visualization.LineChart(document.getElementById('charts_div'));
+      chart.draw(data, options);
     }
   });
 
