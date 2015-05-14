@@ -3,7 +3,7 @@ $(function(){
   //find neighborhoods of city
   $(":button").on("click", function(){
     var city = $(".input-city").val().titleize();
-    var state = $(".input-state").val();
+    var state = $(".input-state").val().toUpperCase();
     $.ajax({
       url: "/hoods",
       data: {"city": city, "state": state }
@@ -34,8 +34,8 @@ $(function(){
   var globalData;
   //find data of neighborhood
   $("div .hoods").on('click', 'li', function(){
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var hood = $(this).text();
     var nation = 'US';
     $.ajax({
@@ -46,7 +46,7 @@ $(function(){
       $('.hood h3').remove();
       $('.hoodInfo h4').remove();
       $('.hoodInfo li').remove();
-      $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
+      $('.hood .title').append('<h3>' + hood + ' of ' + city.titleize() + ', ' + state + '</h3>');
       // hood characteristics of people
       for(var i = 0; i < data[2].uniqueness.category.length; i++){
         $(".hoodInfo").append("<h4>" + data[2].uniqueness.category[i].type + "</h4>");
@@ -63,10 +63,10 @@ $(function(){
       //Hood Stats
       var stats = [];
       //City median home size (hood median home size is not available)
-      stats.push(city + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
+      stats.push(city.titleize() + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
       //Average Year Built
       stats.push( hood + " average home age: " + data[1].tables.table[0].data.attribute[3].values.neighborhood.value);
-      stats.push( city + " average home age: " + data[1].tables.table[0].data.attribute[3].values.city.value);
+      stats.push( city.titleize() + " average home age: " + data[1].tables.table[0].data.attribute[3].values.city.value);
       //Median income
       stats.push(medianIncome(data, hood, city, state));
       stats.push(homesWithKids(data, hood, city, state));
