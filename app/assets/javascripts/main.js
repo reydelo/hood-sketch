@@ -3,33 +3,39 @@ $(function(){
   //find neighborhoods of city
   $(":button").on("click", function(){
     var city = $(".input-city").val().titleize();
-    var state = $(".input-state").val();
+    var state = $(".input-state").val().toUpperCase();
     $.ajax({
       url: "/hoods",
       data: {"city": city, "state": state }
     }).done(function(data) {
       $(".hoods li").remove();
       $(".hoods .title h3").remove();
+      $('.hood h3').remove();
+      $('.hoodInfo h4').remove();
+      $('.hoodInfo li').remove();
       // $('.hood').children().remove();
       $('.hoods .title').append("<h3>Neighborhoods of " + city + ', ' + state + "</h3>");
       for(var i = 0; i < data.length; i++){
         // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
         if (i%3 === 0) {
-          $(".hoods .left-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .left-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         } else if(i%2 === 0) {
-          $(".hoods .middle-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .middle-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         } else {
-          $(".hoods .right-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .right-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         }
       }
       $('.hoods').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
     });
+    $('html, body').animate({
+      scrollTop: $('.hoods').offset().top
+    }, 2000);
   });
   var globalData;
   //find data of neighborhood
   $("div .hoods").on('click', 'li', function(){
-    var city = $(".input-city").val();
-    var state = $(".input-state").val();
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
     var hood = $(this).text();
     var nation = 'US';
     $.ajax({
@@ -37,9 +43,10 @@ $(function(){
       data: {"city": city, "state": state, "hood": hood}
     }).done(function(data) {
       globalData = data;
-      // $('.hood').children().remove();
-      $('.hood .title').append('<h3>' + hood + ' of ' + city + ', ' + state + '</h3>');
-
+      $('.hood h3').remove();
+      $('.hoodInfo h4').remove();
+      $('.hoodInfo li').remove();
+      $('.hood .title').append('<h3>' + hood + ' of ' + city.titleize() + ', ' + state + '</h3>');
       // hood characteristics of people
       for(var i = 0; i < data[2].uniqueness.category.length; i++){
         $(".hoodInfo").append("<h4>" + data[2].uniqueness.category[i].type + "</h4>");
@@ -51,24 +58,22 @@ $(function(){
           $('.hoodInfo').append('<li>' + data[2].uniqueness.category[i].characteristic + '</li>');
         }
       }
-
       $('.hood').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
 
-  //Hood Stats
-    var stats = []
-    //City median home size (hood median home size is not available)
-    stats.push(city + " median home size: " + data[1]["tables"]["table"][0]["data"]["attribute"][2]["values"]["city"]["value"]) + " sq ft";
-    //Average Year Built
-    stats.push( hood + " average home age: " + data[1]["tables"]["table"][0]["data"]["attribute"][3]["values"]["neighborhood"]["value"]);
-    stats.push( city + " average home age: " + data[1]["tables"]["table"][0]["data"]["attribute"][3]["values"]["city"]["value"]);
-    //Median income
-    stats.push(medianIncome(data, hood, city, state))
-    stats.push(homesWithKids(data, hood, city, state))
+      //Hood Stats
+      var stats = [];
+      //City median home size (hood median home size is not available)
+      stats.push(city.titleize() + " median home size: " + data[1].tables.table[0].data.attribute[2].values.city.value + " sq ft");
+      //Average Year Built
+      stats.push( hood + " average home age: " + data[1].tables.table[0].data.attribute[3].values.neighborhood.value);
+      stats.push( city.titleize() + " average home age: " + data[1].tables.table[0].data.attribute[3].values.city.value);
+      //Median income
+      stats.push(medianIncome(data, hood, city, state));
+      stats.push(homesWithKids(data, hood, city, state));
 
-  for(var i = 0; i < stats.length; i++){
-      $(".hood-stats").append("<li>" + stats[i] + "</li>");
-
-  }
+      for(var x = 0; x < stats.length; x++){
+        $(".hood-stats").append("<li>" + stats[x] + "</li>");
+      }
 
       //Median List Price
       // var medianListPrice = data[0].tables.table.data.attribute[8];
