@@ -18,11 +18,11 @@ $(function(){
       for(var i = 0; i < data.length; i++){
         // $('.hoods').append("<li><a href='#'>" + data[i] + "</a></li>");
         if (i%3 === 0) {
-          $(".hoods .left-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .left-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         } else if(i%2 === 0) {
-          $(".hoods .middle-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .middle-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         } else {
-          $(".hoods .right-column").append("<li><a href='#'>" + data[i].name + "</a></li>");
+          $(".hoods .right-column").append("<li><a href='#hood'>" + data[i].name + "</a></li>");
         }
       }
       $('.hoods').append("<a href='#hood'><i class='fa fa-chevron-down'></i></a>");
