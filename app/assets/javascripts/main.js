@@ -62,6 +62,11 @@ $(function(){
         }
       }
       $('.hood').append("<a href='#charts'><i class='fa fa-chevron-down'></i></a>");
+      $('.hood i').on('click', function() {
+        $('html, body').animate({
+          scrollTop: $('.charts').offset().top
+        }, 1500);
+      });
 
       //Hood Stats
       var stats = [];
@@ -100,6 +105,7 @@ $(function(){
       scrollTop: $('.hood').offset().top
     }, 1500);
   });
+
 
   $('#renters').on('click', function() {
       // else if((renters * 100) > 50) {
