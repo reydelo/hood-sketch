@@ -128,7 +128,7 @@ $(function(){
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Type');
       data.addColumn('number', 'Percent');
-      data.addRows([
+      data.addRows([  
         ['Owners', owners],
         ['Renters', renters],
       ]);
