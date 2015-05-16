@@ -215,28 +215,10 @@ $(function(){
     var hood = $(this).text();
     var nation = 'US';
 
-
-
-
     //owner vs renters chart
     var owners = globalData[1].tables.table[0].data.attribute[0].values.neighborhood.value;
     var renters = globalData[1].tables.table[0].data.attribute[1].values.neighborhood.value;
-
     drawPieChart();
-    function drawPieChart() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Type');
-      data.addColumn('number', 'Percent');
-      data.addRows([
-        ['Owners', owners * 100],
-        ['Renters', renters * 100],
-      ]);
-      var options = {'title':'Owners vs. Renters',
-      'width':500,
-      'height':400};
-      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
   });
 
   $("#commute").on('click', function() {
@@ -252,7 +234,6 @@ $(function(){
     var twentyToThirtyMin = data[2].tables.table[2].data.attribute[3];
     var thirtyToFortyFiveMin = data[2].tables.table[2].data.attribute[4];
     var fortyFiveToSixtyMin = data[2].tables.table[2].data.attribute[5];
-    google.setOnLoadCallback(drawLineCommuteChart);
     drawLineCommuteChart();
     function drawLineCommuteChart() {
       var commuteData = google.visualization.arrayToDataTable([
@@ -273,6 +254,4 @@ $(function(){
       var chart = new google.visualization.LineChart(document.getElementById('commute_chart'));
       chart.draw(commuteData, options);
     }
-
-  });
 });
