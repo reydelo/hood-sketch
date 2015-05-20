@@ -78,24 +78,36 @@ $(function(){
       }
 
       // owner vs renters chart
-      var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
-      var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
-      drawPieChart();
-      function drawPieChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Type');
-        data.addColumn('number', 'Percent');
-        data.addRows([
-          ['Owners', owners * 100],
-          ['Renters', renters * 100],
-        ]);
-        var options = {'title':'Owners vs. Renters',
-        'width': 900,
-        'height': 900};
-        var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
-        chart.draw(data, options);
+    var owners = data[1].tables.table[0].data.attribute[0].values.neighborhood.value;
+    var renters = data[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+    drawPieChart();
+    function drawPieChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Percent');
+      data.addRows([
+        ['Owners', owners * 100],
+        ['Renters', renters * 100],
+      ]);
+      var options = {'title':'Owners vs. Renters',
+      'width': 900,
+      'height': 900};
+      var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
+      chart.draw(data, options);
+    }
+
+      // chart description
+      if((renters * 100) > 50) {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are renters.</p>');
+      }
+      else if((owners * 100) > 50) {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are home owners.</p>');
+      }
+      else {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.</p>');
       }
     });
+
     $('html, body').animate({
       scrollTop: $('.hood').offset().top
     }, 1500);
@@ -125,6 +137,7 @@ $(function(){
       chart.draw(data, options);
     }
 
+    // chart description
     if((renters * 100) > 50) {
       $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are renters.</p>');
     }
@@ -182,27 +195,63 @@ $(function(){
     var underSixty = globalData[2].tables.table[1].data.attribute[6];
     var underSeventy = globalData[2].tables.table[1].data.attribute[7];
     var overSeventy = globalData[2].tables.table[1].data.attribute[0];
-    drawLineAgeChart();
     function drawLineAgeChart() {
       var data = google.visualization.arrayToDataTable([
         ['Age', 'Percent of Population'],
-        [underTen.name, underTen.value*100],
-        [underTwenty.name, underTwenty.value*100],
-        [underThirty.name, underThirty.value*100],
-        [underFourty.name, underFourty.value*100],
-        [underFifty.name, underFifty.value*100],
-        [underSixty.name, underSixty.value*100],
-        [underSeventy.name, underSeventy.value*100],
-        [overSeventy.name, overSeventy.value*100]
+        [underTen.name, underTen.value * 100],
+        [underTwenty.name, underTwenty.value * 100],
+        [underThirty.name, underThirty.value * 100],
+        [underFourty.name, underFourty.value * 100],
+        [underFifty.name, underFifty.value * 100],
+        [underSixty.name, underSixty.value * 100],
+        [underSeventy.name, underSeventy.value * 100],
+        [overSeventy.name, overSeventy.value * 100]
       ]);
       var options = {
         legend: { position: 'bottom' },
-        height: 1000,
-        width: 1500
+        vAxis: {title: "Percentage"},
+        hAxis: {title: "Age Group"},
+        height: 600,
+        width: 1000
       };
       var chart = new google.visualization.LineChart(document.getElementById('charts_div'));
       chart.draw(data, options);
     }
+
+    $('#charts_div').empty();
+    $('#chart_description p').remove();
+    drawLineAgeChart();
+    // chart description
+    var ages = {
+      0: {underTen.name: underTen.value},
+      1: {underTwenty.name: underTwenty.value},
+      3: {underThirty.name: underThirty.value},
+      4: {underForty.name: underFourty.value},
+      5: {underFifty.name: underFifty.value},
+      6: {underSixty.name: underSixty.name},
+      7: {underSeventy.name: underSeventy.value},
+      8: {overSeventy.name: overSeventy.value};
+    }
+
+
+    var data = {
+      0: {
+          'Number_of_Something': 212
+      },
+      1: {
+          'Number_of_Something': 65
+      },
+      2: {
+          'Number_of_Something': 657
+      }
+  }
+
+  var max = Math.max.apply(null,
+                          Object.keys(ages).map(function(e) {
+                                  return ages[e]['Number_of_Something'];
+                          }));
+  return max
+
   });
 
   $("#price").on('click', function() {

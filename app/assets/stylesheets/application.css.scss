@@ -107,9 +107,8 @@ img {
   height: 100vh;
 }
 
-
 .nav-pills>li.active, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
-  color: #fff;
+  color: inherit;
   background-color: #dbdbdb;
 }
 
@@ -131,7 +130,12 @@ img {
 }
 
 #chart_description p {
-  margin-top: 400px;
+  margin-top: 250px;
   text-align: center;
   font-size: 200%;
+}
+
+.chart {
+  margin-top: -100px;
+  z-index: -1;
 }
