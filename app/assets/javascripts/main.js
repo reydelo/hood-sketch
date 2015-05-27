@@ -125,6 +125,7 @@ $(function(){
     //owner vs renters chart
     var owners = globalData[1].tables.table[0].data.attribute[0].values.neighborhood.value;
     var renters = globalData[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+    $('#chart_description p').remove();
     drawPieChart();
     function drawPieChart() {
       var data = new google.visualization.DataTable();
@@ -135,8 +136,8 @@ $(function(){
         ['Renters', renters * 100],
       ]);
       var options = {
-      'width': 900,
-      'height': 900};
+      'width': 500,
+      'height': 400};
       var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
       chart.draw(data, options);
     }
@@ -163,6 +164,19 @@ $(function(){
     var thirtyToFortyFiveMin = globalData[2].tables.table[2].data.attribute[4];
     var fortyFiveToSixtyMin = globalData[2].tables.table[2].data.attribute[5];
     google.setOnLoadCallback(drawLineCommuteChart);
+    $('#chart_description p').remove();
+    var times = [
+      { 'time': 'under ten minutes', 'percent': underTenMin.value },
+      { 'time': 'ten to twenty minutes', 'percent': tenToTwentyMin.value },
+      { 'time': 'twenty to thirty minutes', 'percent': twentyToThirtyMin.value },
+      { 'time': 'thirty to forty five minutes', 'percent': thirtyToFortyFiveMin.value },
+      { 'time': 'forty five to sixty minutes', 'percent': fortyFiveToSixtyMin.value },
+      { 'time': 'over sixty minutes', 'percent': overSixtyMin.value }
+    ];
+    var majority = _.max(times, function(x) {
+      return x.percent;
+    });
+    $('#chart_description').append('<p>The largest population of this neighborhood spends<br>' + majority.time + ' for their daily commute.</p>');
     drawLineCommuteChart();
     function drawLineCommuteChart() {
       var commuteData = google.visualization.arrayToDataTable([
@@ -198,6 +212,22 @@ $(function(){
     var underSeventy = globalData[2].tables.table[1].data.attribute[7];
     var overSeventy = globalData[2].tables.table[1].data.attribute[0];
     drawLineAgeChart();
+    $('#chart_description p').remove();
+    var ages = [
+      { 'group': 'under ten', 'value': underTen.value },
+      { 'group': 'teens', 'value': underTwenty.value },
+      { 'group': 'twenties', 'value': underThirty.value },
+      { 'group': 'thirties', 'value': underFourty.value },
+      { 'group': 'fourties', 'value': underFifty.value },
+      { 'group': 'sixties', 'value': underSixty.value },
+      { 'group': 'seventies', 'value': underSeventy.value },
+      { 'group': 'eighties or above', 'value': overSeventy.value }
+    ];
+    var majority = _.max(ages, function(x) {
+      return x.value;
+    });
+    $('#chart_description').append("<p id='age-description'>The largest age group in this neighborhood are people in their " + majority.group + ".</p>");
+
     function drawLineAgeChart() {
       var data = google.visualization.arrayToDataTable([
         ['Age', 'Percent of Population'],
@@ -212,8 +242,8 @@ $(function(){
       ]);
       var options = {
         legend: { position: 'bottom' },
-        height: 1000,
-        width: 1500
+        height: 600,
+        width: 800
       };
       var chart = new google.visualization.LineChart(document.getElementById('charts_div'));
       chart.draw(data, options);
@@ -228,6 +258,7 @@ $(function(){
     var medianListPrice = globalData[0].tables.table.data.attribute[8];
     var medianPriceTitle = medianListPrice.name;
     drawBarChart();
+    $('#chart_description p').remove();
     function drawBarChart() {
       var data = google.visualization.arrayToDataTable([
         [ 'Price per Square Foot', hood, city, nation],
@@ -258,6 +289,7 @@ $(function(){
     var widowedFemale = globalData[2].tables.table[4].data.attribute[6];
     var widowedMale = globalData[2].tables.table[4].data.attribute[7];
     relationshipChart();
+    $('#chart_description p').remove();
     function relationshipChart() {
       var relationshipData =
       google.visualization.arrayToDataTable([
