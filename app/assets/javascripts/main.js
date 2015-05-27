@@ -100,6 +100,15 @@ $(function(){
         var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
         chart.draw(data, options);
       }
+      if((renters * 100) > 50) {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are renters.</p>');
+      }
+      else if((owners * 100) > 50) {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are home owners.</p>');
+      }
+      else {
+        $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.</p>');
+      }
     });
     $('html, body').animate({
       scrollTop: $('.hood').offset().top
@@ -130,7 +139,6 @@ $(function(){
       var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
       chart.draw(data, options);
     }
-
     if((renters * 100) > 50) {
       $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are renters.</p>');
     }
