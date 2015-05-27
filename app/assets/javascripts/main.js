@@ -62,6 +62,11 @@ $(function(){
         }
       }
       $('.hood').append("<a href='#charts'><i class='fa fa-chevron-down'></i></a>");
+      $('.hood i').on('click', function() {
+        $('html, body').animate({
+          scrollTop: $('.charts').offset().top
+        }, 1500);
+      });
 
       //Hood Stats
       var stats = [];
@@ -113,6 +118,7 @@ $(function(){
     }, 1500);
   });
 
+
   $('#renters').on('click', function() {
     var city = $(".input-city").val().titleize();
     var state = $(".input-state").val().toUpperCase();
@@ -148,6 +154,43 @@ $(function(){
       $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.</p>');
     }
   });
+
+
+  $('#renters').on('click', function() {
+    var city = $(".input-city").val().titleize();
+    var state = $(".input-state").val().toUpperCase();
+    var hood = $(this).text();
+    var nation = 'US';
+    //owner vs renters chart
+    var owners = globalData[1].tables.table[0].data.attribute[0].values.neighborhood.value;
+    var renters = globalData[1].tables.table[0].data.attribute[1].values.neighborhood.value;
+    drawPieChart();
+    function drawPieChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Percent');
+      data.addRows([
+        ['Owners', owners],
+        ['Renters', renters],
+      ]);
+      var options = {
+      'width': 900,
+      'height': 900};
+      var chart = new google.visualization.PieChart(document.getElementById('charts_div'));
+      chart.draw(data, options);
+    }
+
+    if((renters) > 50) {
+      $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are renters.</p>');
+    }
+    else if((owners) > 50) {
+      $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  The majority of people in this neighborhood are home owners.</p>');
+    }
+    else {
+      $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.</p>');
+    }
+  });
+
 
   $("#commute").on('click', function() {
     var city = $(".input-city").val().titleize();
