@@ -109,6 +109,7 @@ $(function(){
       else {
         $('#chart_description').append('<p>This displays the percentage of home owners versus renters.  Home owners and renters are split evenly in this neighborhood.</p>');
       }
+      $('.container').append("<center><a href='#search'><i class='fa fa-chevron-up'></i></a><center>");
     });
     $('html, body').animate({
       scrollTop: $('.hood').offset().top
