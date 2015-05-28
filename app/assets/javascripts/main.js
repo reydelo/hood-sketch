@@ -176,7 +176,7 @@ $(function(){
     var majority = _.max(times, function(x) {
       return x.percent;
     });
-    $('#chart_description').append('<p>The largest population of this neighborhood spends<br>' + majority.time + ' for their daily commute.</p>');
+    $('#chart_description').append("<p id='commute-description'>The largest population of this neighborhood spends<br>" + majority.time + ' for their daily commute.</p>');
     drawLineCommuteChart();
     function drawLineCommuteChart() {
       var commuteData = google.visualization.arrayToDataTable([
@@ -259,6 +259,7 @@ $(function(){
     var medianPriceTitle = medianListPrice.name;
     drawBarChart();
     $('#chart_description p').remove();
+    $('#chart_description').append("<p>The average price per square foot in this neighborhood is " + parseInt(medianListPrice.values.neighborhood.value) + " dollars.</p>");
     function drawBarChart() {
       var data = google.visualization.arrayToDataTable([
         [ 'Price per Square Foot', hood, city, nation],
@@ -290,6 +291,20 @@ $(function(){
     var widowedMale = globalData[2].tables.table[4].data.attribute[7];
     relationshipChart();
     $('#chart_description p').remove();
+    var stats = [
+      { 'group': 'divorced females', 'percent': divorcedFemale.value },
+      { 'group': 'divorced males', 'percent': divorcedMale.value },
+      { 'group': 'married females', 'percent': marriedFemale.value },
+      { 'group': 'married males', 'percent': marriedMale.value },
+      { 'group': 'single males', 'percent': singleMale.value },
+      { 'group': 'single females', 'percent': singleFemale.value },
+      { 'group': 'widowed females', 'percent': widowedFemale.value },
+      { 'group': 'widowed males', 'percent': widowedMale.value }
+    ];
+    var majority = _.max(stats, function(x) {
+      return x.percent;
+    });
+    $('#chart_description').append("<p>The largest portion of this neighborhood is " + majority.group + ".</p>");
     function relationshipChart() {
       var relationshipData =
       google.visualization.arrayToDataTable([
